@@ -2,8 +2,8 @@ import type { FastifyPluginAsync } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
 import { prisma } from "../../lib/prisma";
-import { compare } from "bcryptjs";
-import { hash } from 'bcryptjs'
+import { compare, hash } from "bcryptjs";
+import jwt from '@fastify/jwt'
 
 const LoginUserSchema = z.object({
   email: z.string().min(6),
@@ -52,9 +52,10 @@ export const LoginUserRoutes: FastifyPluginAsync = async (app) => {
     
 })
 
+
 app
     .withTypeProvider<ZodTypeProvider>()
-    .put("/users/:id", async (request, reply) => {
+    .put("/users/:id", {preValidation: [app.authenticate]}, async (request, reply) => {
       const { name, email, password, old_password } = UpdateUserSchema.parse(
         request.body
       );

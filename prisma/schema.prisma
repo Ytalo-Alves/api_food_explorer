@@ -12,10 +12,66 @@ datasource db {
 }
 
 model User {
-  id       String @unique @default(uuid())
+  id       String  @unique @default(uuid())
   name     String
-  email    String @unique
+  email    String  @unique
   password String
+  avatar   String?
+  isAdmin  Boolean @default(false)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  orders     Orders[]
 
   @@map("users")
+}
+
+model Dishes {
+  id          String        @unique @default(uuid())
+  title       String
+  description String
+  category    String
+  price       String
+  image       String
+  ingredients Ingredients[]
+  ordersItems ordersItems[]
+
+  @@map("dishes")
+}
+
+model Ingredients {
+  id       String @unique @default(uuid())
+  name     String
+  dishesId String
+
+  dishes Dishes @relation(fields: [dishesId], references: [id])
+
+  @@map("ingredients")
+}
+
+model Orders {
+  id            String   @unique @default(uuid())
+  orderStatus   String
+  totalPrice    String
+  paymentMethod String
+  userId        String
+  created_at    DateTime @default(now())
+
+  user        User          @relation(fields: [userId], references: [id])
+  ordersItems ordersItems[]
+
+  @@map("orders")
+}
+
+model ordersItems {
+  id       String @unique @default(uuid())
+  title    String
+  quantity Int
+  ordersId String
+  dishesId String
+
+  orders Orders @relation(fields: [ordersId], references: [id])
+  dishes Dishes @relation(fields: [dishesId], references: [id])
+
+  @@map("ordersitems")
 }

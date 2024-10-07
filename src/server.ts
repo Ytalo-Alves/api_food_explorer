@@ -1,8 +1,11 @@
 import Fastify from "fastify";
 import jwt from '@fastify/jwt';
 
-import { CreateUserRoutes } from "./routes/Users/createUser";
-import { LoginUserRoutes } from "./routes/Users/loginUser";
+import { CreateUserRoutes } from "./routes/users/createUser";
+import { LoginUserRoutes } from "./routes/users/loginUser";
+import { CreateDishesRoutes } from "./routes/dishes/createDishes";
+import { UpdatedDishesRoutes } from "./routes/dishes/updateDishes";
+import { DeleteDishesRoutes } from "./routes/dishes/deleteDishes";
 
 
 const app = Fastify()
@@ -23,6 +26,9 @@ app.decorate("authenticate", async function (request, reply) {
 
 app.register(CreateUserRoutes)
 app.register(LoginUserRoutes)
+app.register(CreateDishesRoutes)
+app.register(UpdatedDishesRoutes)
+app.register(DeleteDishesRoutes)
 
 app.listen({port: PORT}).then( ()=> {
   console.log('Server is running')

@@ -27,12 +27,15 @@ model User {
 }
 
 model Dishes {
-  id          String        @unique @default(uuid())
+  id          String   @unique @default(uuid())
   title       String
   description String
   category    String
   price       String
   image       String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
+
   ingredients Ingredients[]
   ordersItems ordersItems[]
 

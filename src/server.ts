@@ -6,6 +6,7 @@ import { LoginUserRoutes } from "./routes/users/loginUser";
 import { CreateDishesRoutes } from "./routes/dishes/createDishes";
 import { UpdatedDishesRoutes } from "./routes/dishes/updateDishes";
 import { DeleteDishesRoutes } from "./routes/dishes/deleteDishes";
+import { CreateOrdersItensRoutes} from "./routes/orders/createOrders";
 
 
 const app = Fastify()
@@ -29,6 +30,7 @@ app.register(LoginUserRoutes)
 app.register(CreateDishesRoutes)
 app.register(UpdatedDishesRoutes)
 app.register(DeleteDishesRoutes)
+app.register(CreateOrdersItensRoutes)
 
 app.listen({port: PORT}).then( ()=> {
   console.log('Server is running')

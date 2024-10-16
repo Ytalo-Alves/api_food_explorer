@@ -85,5 +85,6 @@ export const CreateOrdersItensRoutes: FastifyPluginAsync = async (app) => {
   
     return reply.status(201).send({ newOrderItem, totalPrice: newTotalPrice.toFixed(2) });
   });
+
   
 };

@@ -31,7 +31,7 @@ model Dishes {
   title       String
   description String
   category    String
-  price       String
+  price       Float
   image       String
   created_at  DateTime @default(now())
   updated_at  DateTime @default(now())

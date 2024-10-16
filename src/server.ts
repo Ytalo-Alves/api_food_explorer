@@ -1,14 +1,16 @@
 import Fastify from "fastify";
 import jwt from '@fastify/jwt';
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUi from "@fastify/swagger-ui";
 
-import { CreateUserRoutes } from "./routes/user/create_user";
-import { LoginUserRoutes } from "./routes/user/login_user";
-import { CreateDishesRoutes } from "./routes/dish/create_dish";
-import { UpdatedDishesRoutes } from "./routes/dish/updated_dish";
-import { DeleteDishesRoutes } from "./routes/dish/delete_dish";
-import { CreateOrdersItensRoutes} from "./routes/order/create_order";
-import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
-import { UpdatedPaymentMethodRoutes } from "./routes/order/updated_order";
+import { CreateUserRoutes } from "./routes/create_user";
+import { LoginUserRoutes } from "./routes/login_user";
+import { CreateDishesRoutes } from "./routes/create_dish";
+import { UpdatedDishesRoutes } from "./routes/updated_dish";
+import { DeleteDishesRoutes } from "./routes/delete_dish";
+import { CreateOrdersItensRoutes} from "./routes/create_order";
+import { serializerCompiler, validatorCompiler, jsonSchemaTransform } from "fastify-type-provider-zod";
+import { UpdatedPaymentMethodRoutes } from "./routes/updated_order";
 
 
 const app = Fastify()
@@ -28,6 +30,23 @@ app.decorate("authenticate", async function (request, reply) {
     return reply.status(401).send({ error: 'Token inválido ou ausente.' });
   }
 });
+
+app.register(fastifySwagger, {
+  swagger: {
+    consumes: ['application/json'],
+    produces: ['application/json'],
+    info: {
+      title: 'food-explorer-api',
+      description: 'API developed for a restaurant application',
+      version: '1.0.0'
+    }
+  },
+  transform: jsonSchemaTransform
+})
+
+app.register(fastifySwaggerUi, {
+  routePrefix: '/docs'
+})
 
 app.register(CreateUserRoutes)
 app.register(LoginUserRoutes)

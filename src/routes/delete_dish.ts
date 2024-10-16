@@ -1,7 +1,7 @@
 import type { FastifyPluginAsync } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../lib/prisma";
 
 const paramsDishesID = z.object({
   id: z.string().uuid(),

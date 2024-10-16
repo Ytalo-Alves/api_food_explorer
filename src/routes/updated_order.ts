@@ -1,6 +1,6 @@
 import type { FastifyPluginAsync } from "fastify";
 import { z } from "zod";
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../lib/prisma";
 
 interface AuthenticatedUser {
   id: string;

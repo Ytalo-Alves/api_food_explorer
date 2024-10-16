@@ -1,7 +1,7 @@
 import type { FastifyPluginAsync } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../lib/prisma";
 
 const CreateUserSchema = z.object({
   title: z.string().min(6),

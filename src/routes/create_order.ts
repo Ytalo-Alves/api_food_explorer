@@ -1,7 +1,7 @@
 import type { FastifyPluginAsync } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../lib/prisma";
 
 interface AuthenticatedUser {
   id: string;
@@ -15,7 +15,8 @@ const CreateOrderItensSchema = z.object({
 });
 
 export const CreateOrdersItensRoutes: FastifyPluginAsync = async (app) => {
-  app.post("/ordersItens", { preValidation: [app.authenticate] }, async (request, reply) => {
+  app.post("/ordersItens", { preValidation: [app.authenticate], 
+  }, async (request, reply) => {
     const { title, quantity, dishesId } = CreateOrderItensSchema.parse(request.body);
 
     const user =  request.user as AuthenticatedUser
@@ -82,6 +83,8 @@ export const CreateOrdersItensRoutes: FastifyPluginAsync = async (app) => {
       where: { id: activeOrder.id },
       data: { totalPrice: newTotalPrice.toFixed(2) }, // Arredonda para 2 casas decimais
     });
+
+    console.log({newOrderItem, newTotalPrice})
   
     return reply.status(201).send({ newOrderItem, totalPrice: newTotalPrice.toFixed(2) });
   });

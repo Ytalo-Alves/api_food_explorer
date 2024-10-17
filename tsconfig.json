@@ -6,5 +6,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "types.d.ts"]
+  "include": ["src/**/*.ts", "src/@types/**/*.d.ts"],  // Inclua seu types.d.ts
+  "exclude": ["node_modules", "dist"]
 }

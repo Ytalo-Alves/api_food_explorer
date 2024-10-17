@@ -8,7 +8,7 @@ const CreateUserSchema = z.object({
   title: z.string().min(6),
   description: z.string(),
   category: z.string().min(6),
-  price: z.string(),
+  price: z.number(),
   image: z.string(),
   ingredients: z.array(z.object({
     name: z.string()
@@ -34,7 +34,7 @@ export const CreateDishesRoutes: FastifyPluginAsync = async (app) => {
                 title: z.string(),
                 description: z.string(),
                 category: z.string(),
-                price: z.string(),
+                price: z.number(),
                 image: z.string().optional(),
                 ingredients: z.array(z.object({
                   name: z.string()

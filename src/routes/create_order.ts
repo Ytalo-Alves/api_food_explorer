@@ -58,7 +58,7 @@ export const CreateOrdersItensRoutes: FastifyPluginAsync = async (app) => {
     }
   
     // Converte o preço de string para número (float)
-    const priceAsNumber = parseFloat(dish.price);
+    const priceAsNumber = dish.price
   
     if (isNaN(priceAsNumber)) {
       return reply.status(400).send({ error: 'Preço inválido para o prato' });

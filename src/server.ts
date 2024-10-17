@@ -2,7 +2,7 @@ import Fastify from "fastify";
 import jwt from '@fastify/jwt';
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
-
+import fastifyMultipart from 'fastify-multipart';  // Importa o plugin
 import { CreateUserRoutes } from "./routes/create_user";
 import { LoginUserRoutes } from "./routes/login_user";
 import { CreateDishesRoutes } from "./routes/create_dish";
@@ -18,6 +18,10 @@ const PORT = 3333;
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
+
+
+
+app.register(fastifyMultipart)
 
 app.register(jwt, {
   secret: 'supersecret', // Substitua com uma variável de ambiente
@@ -56,6 +60,7 @@ app.register(DeleteDishesRoutes)
 app.register(CreateOrdersItensRoutes)
 app.register(UpdatedPaymentMethodRoutes)
 
+
 app.listen({port: PORT}).then( ()=> {
-  console.log('Server is running')
+  console.log('Server is running on port ' + PORT)
 })

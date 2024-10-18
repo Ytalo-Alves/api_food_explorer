@@ -11,10 +11,17 @@ import { DeleteDishesRoutes } from "./routes/delete_dish";
 import { CreateOrdersItensRoutes} from "./routes/create_order";
 import { serializerCompiler, validatorCompiler, jsonSchemaTransform } from "fastify-type-provider-zod";
 import { UpdatedPaymentMethodRoutes } from "./routes/updated_order";
+import { fastifyCors } from "@fastify/cors";
 
 
 const app = Fastify()
 const PORT = 3333;
+
+
+app.register(fastifyCors, {
+  origin: '*'
+})
+
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
